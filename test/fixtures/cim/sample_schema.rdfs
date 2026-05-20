@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Hand-authored fragment of a CIM-style RDFS, just large enough to test the
+  loader. Mirrors the IEC RDF Schema Extensions (cims:) conventions used by
+  IEC TC57 CIM and CGMES.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:cims="http://iec.ch/TC57/1999/rdf-schema-extensions-19990926#"
+         xmlns:cim="http://iec.ch/TC57/CIM100#">
+
+  <rdfs:Class rdf:about="cim:IdentifiedObject">
+    <rdfs:label>IdentifiedObject</rdfs:label>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:PowerSystemResource">
+    <rdfs:subClassOf rdf:resource="cim:IdentifiedObject"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:Equipment">
+    <rdfs:subClassOf rdf:resource="cim:PowerSystemResource"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:ConductingEquipment">
+    <rdfs:subClassOf rdf:resource="cim:Equipment"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:Conductor">
+    <rdfs:subClassOf rdf:resource="cim:ConductingEquipment"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:ACLineSegment">
+    <rdfs:subClassOf rdf:resource="cim:Conductor"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:EquipmentContainer">
+    <rdfs:subClassOf rdf:resource="cim:PowerSystemResource"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:Substation">
+    <rdfs:subClassOf rdf:resource="cim:EquipmentContainer"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="cim:PhaseCode">
+    <cims:stereotype>Enumeration</cims:stereotype>
+  </rdfs:Class>
+  <rdf:Description rdf:about="cim:PhaseCode.A">
+    <rdfs:label>A</rdfs:label>
+    <rdf:type rdf:resource="cim:PhaseCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="cim:PhaseCode.B">
+    <rdfs:label>B</rdfs:label>
+    <rdf:type rdf:resource="cim:PhaseCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="cim:PhaseCode.C">
+    <rdfs:label>C</rdfs:label>
+    <rdf:type rdf:resource="cim:PhaseCode"/>
+  </rdf:Description>
+
+  <rdf:Property rdf:about="cim:IdentifiedObject.name">
+    <rdfs:domain rdf:resource="cim:IdentifiedObject"/>
+    <rdfs:range rdf:resource="xsd:string"/>
+    <cims:multiplicity rdf:resource="cims:M:0..1"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="cim:Conductor.length">
+    <rdfs:domain rdf:resource="cim:Conductor"/>
+    <rdfs:range rdf:resource="xsd:float"/>
+    <cims:multiplicity rdf:resource="cims:M:0..1"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="cim:ACLineSegment.r">
+    <rdfs:domain rdf:resource="cim:ACLineSegment"/>
+    <rdfs:range rdf:resource="xsd:float"/>
+    <cims:multiplicity rdf:resource="cims:M:0..1"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="cim:Equipment.EquipmentContainer">
+    <rdfs:domain rdf:resource="cim:Equipment"/>
+    <rdfs:range rdf:resource="cim:EquipmentContainer"/>
+    <cims:multiplicity rdf:resource="cims:M:0..1"/>
+  </rdf:Property>
+
+</rdf:RDF>

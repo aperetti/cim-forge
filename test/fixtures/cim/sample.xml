@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:cim="http://iec.ch/TC57/CIM100#">
+  <!-- A tiny hand-authored CIM-flavored sample for parser tests. -->
+  <cim:Substation rdf:ID="_sub1">
+    <cim:IdentifiedObject.name>Substation A</cim:IdentifiedObject.name>
+  </cim:Substation>
+  <cim:ACLineSegment rdf:ID="_line1">
+    <cim:IdentifiedObject.name>Feeder 12</cim:IdentifiedObject.name>
+    <cim:ACLineSegment.r>0.013</cim:ACLineSegment.r>
+    <cim:Conductor.length>1234.5</cim:Conductor.length>
+    <cim:Equipment.EquipmentContainer rdf:resource="#_sub1"/>
+  </cim:ACLineSegment>
+  <cim:ACLineSegment rdf:ID="_line2">
+    <cim:IdentifiedObject.name>Feeder 13</cim:IdentifiedObject.name>
+    <cim:ACLineSegment.r>0.022</cim:ACLineSegment.r>
+    <cim:Conductor.length>987.0</cim:Conductor.length>
+    <cim:Equipment.EquipmentContainer rdf:resource="#_sub1"/>
+  </cim:ACLineSegment>
+</rdf:RDF>
