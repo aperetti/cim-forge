@@ -1,0 +1,17 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    # Spike subprojects have their own pubspec.yaml and analysis options.
+    - spikes/**
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    todo: warning
+
+linter:
+  rules:
+    avoid_print: false
+    public_member_api_docs: false

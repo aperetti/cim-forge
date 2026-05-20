@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux desktop build deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config \
+            libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.7'
+          channel: stable
+          cache: true
+
+      - name: flutter pub get
+        run: flutter pub get
+
+      # Record what the Ubuntu runner has linked for OpenSSL — this is the
+      # version the prebuilt libgit2 + libssh2 in `git2dart_binaries` will
+      # actually load against at runtime. The Linux libgit2 smoke step
+      # below validates the result; this step makes the cause visible in
+      # the log when it fails. Runs after pub get so .pub-cache exists.
+      - name: Linux openssl / libssl inventory
+        if: runner.os == 'Linux'
+        run: |
+          set -eu
+          echo "=== openssl version ==="
+          openssl version || true
+          echo "=== libssl on the system loader path ==="
+          ldconfig -p | grep -E 'libssl|libcrypto' || true
+          echo "=== bundled libgit2 / libssh2 (git2dart_binaries) ==="
+          find ~/.pub-cache -path '*git2dart_binaries*linux*' \
+            -name '*.so' -exec ls -l {} \; || true
+
+      - name: flutter analyze
+        run: flutter analyze
+
+      # Surface the Linux libgit2 result as its own step so a red dot on
+      # the CI page points unambiguously at the OpenSSL/libssh2 story (see
+      # packaging/linux/README.md decision tree). On Windows this test
+      # no-ops via markTestSkipped.
+      - name: Linux libgit2 smoke
+        if: runner.os == 'Linux'
+        run: flutter test test/features/git/linux_libgit2_smoke_test.dart \
+             --reporter expanded
+
+      - name: flutter test
+        run: flutter test --reporter expanded

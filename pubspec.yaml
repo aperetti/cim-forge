@@ -1,0 +1,68 @@
+name: cim_forge
+description: A desktop application for utility engineers and GIS analysts to build and maintain CIM models through custom, spreadsheet-like table views backed by Git and CIM RDF/XML.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.9.2
+  flutter: ">=3.35.0"
+
+# Every third-party dep below is justified per TR-1.5.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # OS-keystore wrapper for FR-5.7 (token / SSH key storage outside the
+  # repo, in plaintext-safe locations). Backs Windows Credential Manager,
+  # libsecret on Linux, and Keychain on macOS via a single API. Required
+  # so we can stop hand-rolling FFI for each platform.
+  flutter_secure_storage: ^9.2.2
+
+  # libgit2 bindings — TR-7.1 mandates libgit2 via FFI. The TR-9.2 spike
+  # confirmed git2dart + prebuilt git2dart_binaries works on Windows.
+  # DEPLOYMENT: libgit2.dll hard-imports libssh2.dll which needs OpenSSL 3;
+  # the Windows installer must bundle libcrypto-3-x64.dll / libssl-3-x64.dll
+  # (or Git-for-Windows must be on PATH for dev runs). See spike-outcomes
+  # memory.
+  git2dart: ^0.4.0
+
+  # @immutable / @internal annotations. Already a transitive dep of `flutter`
+  # and `xml`; declared explicitly so direct imports are linter-clean.
+  meta: ^1.16.0
+
+  # File path manipulation — used everywhere (project layout, fixture loading,
+  # cross-platform path joins).
+  path: ^1.9.0
+
+  # OS-appropriate user-data directories for settings persistence (recent
+  # projects, window geometry). First-party Flutter team package.
+  path_provider: ^2.1.5
+
+  # Direct SQLite bindings — TR-4.2 mandates SQLite as the index. We need raw
+  # SQL access (custom triple-store schema, manual EXPLAIN, perf control), so
+  # `drift` is too high-level. `sqlite3` is the well-maintained low-level
+  # choice. `sqlite3_flutter_libs` ships prebuilt SQLite for Windows/Linux/macOS
+  # so we don't depend on the system library.
+  sqlite3: ^2.4.0
+  sqlite3_flutter_libs: ^0.5.24
+
+  # Flutter team's official virtualized 2D scroll widget set, built on top of
+  # the core TwoDimensionalScrollView (TR-9.3). Used for `features/grid`. Not a
+  # third-party "data grid" — it imposes no data-binding shape, just cell-
+  # builder callbacks that match what we'd write by hand.
+  two_dimensional_scrollables: ^0.3.0
+
+  # CIM RDF/XML parsing — TR-4.3. The TR-9.1 spike confirmed this package's
+  # event API exposes the byte offsets required for surgical patching.
+  xml: ^6.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Stricter lints than `flutter_lints` — aligns with TR-2.4 (300/500 rule)
+  # and TR-11 TDD discipline.
+  very_good_analysis: ^7.0.0
+
+flutter:
+  uses-material-design: true
