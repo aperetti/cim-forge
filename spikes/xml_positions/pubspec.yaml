@@ -1,0 +1,7 @@
+name: xml_positions_spike
+description: Spike TR-9.1 — verify Dart xml package exposes source positions for surgical patching.
+publish_to: none
+environment:
+  sdk: ^3.9.0
+dependencies:
+  xml: ^6.5.0

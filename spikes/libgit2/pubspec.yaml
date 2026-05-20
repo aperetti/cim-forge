@@ -1,0 +1,14 @@
+name: libgit2_spike
+description: Spike TR-9.2 — verify git2dart works on Windows with prebuilt binaries (no source build).
+publish_to: none
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.35.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  git2dart: ^0.4.0
+  path: ^1.9.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

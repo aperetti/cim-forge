@@ -1,0 +1,20 @@
+# CIM Forge — line-ending policy.
+#
+# Surgical XML patches rely on byte-stable line endings (TR-4.3 / FR-4.2).
+# CRLF normalization would shift the source offsets we computed at parse
+# time, breaking surgical edits after a checkout round-trip. Pin every
+# file's line ending to LF for everyone, regardless of their global
+# core.autocrlf setting.
+
+* text=auto eol=lf
+
+# CIM XML / RDFS fixtures must be byte-stable.
+*.xml binary
+*.rdfs binary
+
+# SQLite databases and lock files are binary blobs.
+*.sqlite3 binary
+*.sqlite3-shm binary
+*.sqlite3-wal binary
+*.sqlite3-journal binary
+pubspec.lock text eol=lf
