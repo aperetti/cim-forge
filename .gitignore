@@ -34,7 +34,11 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+**/build/
 /coverage/
+
+# Other agentic-tool local state — never committed.
+.antigravitycli/
 
 # Symbolication related
 app.*.symbols
