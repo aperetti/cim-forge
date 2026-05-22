@@ -1,0 +1,14 @@
+CIM Forge — bundled third-party licenses (Linux package)
+==========================================================
+
+This file records every third-party binary that ships in the CIM Forge
+Linux package alongside the application code, if any. Counterpart of
+packaging/windows/third-party-licenses.txt.
+
+The decision on whether OpenSSL is bundled at all is documented in
+packaging/linux/README.md. If outcome A holds (system OpenSSL is viable),
+this file stays empty. If outcome B holds (bundle required), append
+entries below per build using the same format as the Windows ledger.
+
+---
+(no third-party bundles in current Linux builds)
