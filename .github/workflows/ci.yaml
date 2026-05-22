@@ -59,8 +59,9 @@ jobs:
       # no-ops via markTestSkipped.
       - name: Linux libgit2 smoke
         if: runner.os == 'Linux'
-        run: flutter test test/features/git/linux_libgit2_smoke_test.dart \
-             --reporter expanded
+        run: >-
+          flutter test test/features/git/linux_libgit2_smoke_test.dart
+          --reporter expanded
 
       - name: flutter test
         run: flutter test --reporter expanded
