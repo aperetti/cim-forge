@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:cim="http://iec.ch/TC57/CIM100#">
+  <!-- One substation with four child ACLineSegments so M6 can exercise
+       both fixed-slot expansion and overflow (maxCount=2 → two slots,
+       two overflow). -->
+  <cim:Substation rdf:ID="_sub1">
+    <cim:IdentifiedObject.name>Substation A</cim:IdentifiedObject.name>
+  </cim:Substation>
+  <cim:ACLineSegment rdf:ID="_lineA">
+    <cim:IdentifiedObject.name>Feeder A</cim:IdentifiedObject.name>
+    <cim:Conductor.length>100.0</cim:Conductor.length>
+    <cim:ACLineSegment.r>0.01</cim:ACLineSegment.r>
+    <cim:Equipment.EquipmentContainer rdf:resource="#_sub1"/>
+  </cim:ACLineSegment>
+  <cim:ACLineSegment rdf:ID="_lineB">
+    <cim:IdentifiedObject.name>Feeder B</cim:IdentifiedObject.name>
+    <cim:Conductor.length>200.0</cim:Conductor.length>
+    <cim:ACLineSegment.r>0.02</cim:ACLineSegment.r>
+    <cim:Equipment.EquipmentContainer rdf:resource="#_sub1"/>
+  </cim:ACLineSegment>
+  <cim:ACLineSegment rdf:ID="_lineC">
+    <cim:IdentifiedObject.name>Feeder C</cim:IdentifiedObject.name>
+    <cim:Conductor.length>300.0</cim:Conductor.length>
+    <cim:ACLineSegment.r>0.03</cim:ACLineSegment.r>
+    <cim:Equipment.EquipmentContainer rdf:resource="#_sub1"/>
+  </cim:ACLineSegment>
+  <cim:ACLineSegment rdf:ID="_lineD">
+    <cim:IdentifiedObject.name>Feeder D</cim:IdentifiedObject.name>
+    <cim:Conductor.length>400.0</cim:Conductor.length>
+    <cim:ACLineSegment.r>0.04</cim:ACLineSegment.r>
+    <cim:Equipment.EquipmentContainer rdf:resource="#_sub1"/>
+  </cim:ACLineSegment>
+</rdf:RDF>
