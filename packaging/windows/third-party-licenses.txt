@@ -1,0 +1,20 @@
+CIM Forge — bundled third-party licenses
+=========================================
+
+This file records every third-party binary that ships in the CIM Forge
+Windows installer alongside the application code. Each entry includes the
+upstream version and the canonical license name. The license text itself
+is shipped as <name>.openssl / <name>.<source> in the installation root.
+
+Updates to this file should be appended by bundle-openssl.ps1 (and any
+future bundling scripts) so the build is auditable.
+
+---
+OpenSSL 3
+  Source:  https://www.openssl.org/  (typically via vcpkg or
+           Shining Light Productions "Win64 OpenSSL")
+  License: Apache-2.0 (OpenSSL 3.0+)
+  Why:     Transitively required by libssh2.dll, which is in turn imported
+           by libgit2.dll (shipped by the git2dart_binaries pub package).
+  Version: recorded per-build below.
+---
